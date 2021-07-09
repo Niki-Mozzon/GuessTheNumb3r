@@ -4,13 +4,15 @@ let guessTot = 0;
 let guessAvailable = 10;
 let guess;
 let level = 1;
-const difficulties = [5, 100, 250, 500, 750, 1000, 2500, 5000, 7500, 10000];
+const difficulties = [50, 100, 250, 500, 750, 1000, 2500, 5000, 7500, 10000];
 let maxScore = (guessAvailable + 10) * difficulties.length;
-let secretNum = Math.trunc(Math.random() * (difficulties[level - 1] + 1));
+let secretNum = getRadom();
 const history = document.querySelector('.history');
 let highScore = 0;
+let hint = '';
 
 loading();
+document.querySelector('.number').textContent = secretNum; //Unveil secret number
 
 document.querySelector('#levelUp').addEventListener('click', function() {
   levelUp();
@@ -40,12 +42,38 @@ document.querySelector('.check').addEventListener('click', function() {
 function notGuessed() {
   guessCount++;
   if (guess > secretNum) {
-    document.querySelector('.message').textContent = 'Nope, too high!';
-    document.querySelector('.history').textContent += guess + ' -> Nope, too high!\r\n';
+    hint = 'Nope, too high!';
+    if (guess - secretNum < 10) {
+      hint = 'Less, but damn, you are close!';
+    } else if (level >= 3) {
+      hint = "Way too high, you ain't even close!";
+      if (guess - secretNum <= 30 && level >= 3) {
+        //Aggiustare il level 3 se non serve!!
+        hint = 'High, but you are getting close..';
+      } else if (guess - secretNum <= 300 && level >= 6) {
+        hint = 'Nope, too high!';
+      } else if (guess - secretNum <= 1000 && level >= 9) {
+        hint = 'Too high!';
+      }
+    }
   } else if (guess < secretNum) {
-    document.querySelector('.message').textContent = 'Nope, too low!';
-    document.querySelector('.history').textContent += guess + ' -> Nope, too low!\r\n';
+    hint = 'Nope, too low!';
+    if (secretNum - guess < 10) {
+      hint = 'More, but damn, you are close!';
+    } else if (level >= 3) {
+      hint = "Way too ow, you ain't even close!";
+      if (secretNum - guess <= 30 && level >= 3) {
+        //Aggiustare il level 3 se non serve!!
+        hint = 'Low, but you are getting close..';
+      } else if (secretNum - guess <= 300 && level >= 6) {
+        hint = 'Nope, too low!';
+      } else if (secretNum - guess <= 1000 && level >= 9) {
+        hint = 'Too low!';
+      }
+    }
   }
+  document.querySelector('.history').textContent += guess + ' -> ' + hint + '\r\n';
+  document.querySelector('.message').textContent = hint;
   document.querySelector('.score').textContent = guessAvailable - guessCount;
 }
 
@@ -59,11 +87,14 @@ function guessed() {
 }
 
 function levelUp() {
-  document.querySelector('.number').textContent = '?'; //Unveil secret number
+  level++; //Increase level
+  secretNum = getRadom(); //calculate new secret number
+  document.querySelector('.number').textContent = '?'; //veil secret number
+  document.querySelector('.number').textContent = secretNum; //Unveil secret number
+
   document.getElementById('guess').focus();
   document.querySelector('#guess').value = '';
   document.querySelector('.history').textContent = ''; //Reset history
-  level++; //Increase level
   document.getElementById('levelUp').style.display = 'none';
   document.querySelector('.level').textContent = 'Level ' + level; //Set level
   document.querySelector('.difficulty').textContent = '(Between 1 and ' + difficulties[level - 1] + ')'; //Set difficolty label
@@ -84,6 +115,11 @@ function highScoreCalculator() {
   highScore += res;
   guessCount = 0;
   return highScore;
+}
+
+function getRadom() {
+  let res = Math.trunc(Math.random() * (difficulties[level - 1] + 1));
+  return res;
 }
 
 /*
