@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5ABD38D9-3214-4AB0-92EC-66B0E38C922F}"
+	ProjectSection(SolutionItems) = preProject
+		.prettierrc = .prettierrc
+		GuessGameIndex.html = GuessGameIndex.html
+		GuessGameScript.js = GuessGameScript.js
+		GuessGameStyle.css = GuessGameStyle.css
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD965DCC-D586-4453-926F-783957364FF5}
+	EndGlobalSection
+EndGlobal
