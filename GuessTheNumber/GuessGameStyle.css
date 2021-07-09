@@ -61,8 +61,8 @@ h1 {
     background: #eee;
     color: #333;
     font-size: 6rem;
-    width: 15rem;
-    padding: 3rem 0rem;
+    width: auto;
+    padding: 3rem 1rem;
     text-align: center;
     position: absolute;
     bottom: 0;

@@ -12,7 +12,7 @@ let highScore = 0;
 let hint = '';
 
 loading();
-document.querySelector('.number').textContent = secretNum; //Unveil secret number
+//document.querySelector('.number').textContent = secretNum; //Unveil secret number
 
 document.querySelector('#levelUp').addEventListener('click', function() {
   levelUp();
@@ -84,24 +84,24 @@ function guessed() {
   document.getElementById('guess').disabled = true;
   document.getElementsByClassName('check').disabled = true;
   document.querySelector('.highscore').textContent = highScoreCalculator() + '/' + maxScore; //Set score
+  document.getElementById('levelUp').focus();
 }
 
 function levelUp() {
   level++; //Increase level
+  document.getElementById('guess').disabled = false;
   secretNum = getRadom(); //calculate new secret number
   document.querySelector('.number').textContent = '?'; //veil secret number
-  document.querySelector('.number').textContent = secretNum; //Unveil secret number
-
-  document.getElementById('guess').focus();
+  //document.querySelector('.number').textContent = secretNum; //Unveil secret number
   document.querySelector('#guess').value = '';
   document.querySelector('.history').textContent = ''; //Reset history
   document.getElementById('levelUp').style.display = 'none';
   document.querySelector('.level').textContent = 'Level ' + level; //Set level
   document.querySelector('.difficulty').textContent = '(Between 1 and ' + difficulties[level - 1] + ')'; //Set difficolty label
   document.querySelector('.score').textContent = guessAvailable - guessCount;
-  document.getElementById('guess').disabled = false;
   document.getElementsByClassName('check').disabled = false;
   document.querySelector('.message').textContent = 'Start guessing...';
+  document.getElementById('guess').focus();
 }
 
 function loading() {
