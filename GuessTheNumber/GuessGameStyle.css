@@ -61,7 +61,7 @@ h1 {
     background: #eee;
     color: #333;
     font-size: 6rem;
-    width: auto;
+    width: 15rem;
     padding: 3rem 1rem;
     text-align: center;
     position: absolute;
@@ -106,7 +106,7 @@ h1 {
     height: 20rem;
     font-size: 2rem;
     padding: 2.5rem;
-    width: 50rem;
+    width: 25rem;
     text-align: center;
     display: block;
     margin-bottom: 3rem;
