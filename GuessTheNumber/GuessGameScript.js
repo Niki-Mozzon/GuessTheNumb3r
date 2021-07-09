@@ -6,7 +6,7 @@ let guess;
 let level = 1;
 const difficulties = [5, 100, 250, 500, 750, 1000, 2500, 5000, 7500, 10000];
 let maxScore = (guessAvailable + 10) * difficulties.length;
-let secretNum = Math.trunc(Math.random() * difficulties[level - 1]);
+let secretNum = Math.trunc(Math.random() * (difficulties[level - 1] + 1));
 const history = document.querySelector('.history');
 let highScore = 0;
 
@@ -42,12 +42,11 @@ function notGuessed() {
   if (guess > secretNum) {
     document.querySelector('.message').textContent = 'Nope, too high!';
     document.querySelector('.history').textContent += guess + ' -> Nope, too high!\r\n';
-    document.querySelector('.score').textContent = guessAvailable - guessCount;
   } else if (guess < secretNum) {
     document.querySelector('.message').textContent = 'Nope, too low!';
     document.querySelector('.history').textContent += guess + ' -> Nope, too low!\r\n';
-    document.querySelector('.score').textContent = guessAvailable - guessCount;
   }
+  document.querySelector('.score').textContent = guessAvailable - guessCount;
 }
 
 function guessed() {
@@ -77,6 +76,7 @@ function levelUp() {
 function loading() {
   document.querySelector('.difficulty').textContent = '(Between 1 and ' + difficulties[level - 1] + ')'; //Display difficulty
   document.querySelector('.score').textContent = guessAvailable - guessCount;
+  document.getElementById('guess').focus();
 }
 
 function highScoreCalculator() {
