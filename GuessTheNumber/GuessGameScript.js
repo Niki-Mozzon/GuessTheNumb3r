@@ -21,10 +21,10 @@ document.querySelector('#levelUp').addEventListener('click', function() {
 
 document.querySelector('.check').addEventListener('click', function() {
   if (!document.getElementsByClassName('check').disabled) {
-    guess = document.querySelector('#guess').value;
+    guess = Number(document.querySelector('#guess').value);
 
-    if (guess > difficulties[level - 1] || guess < 0) {
-      document.querySelector('.message').textContent = 'The number is between 1 and ' + difficulties[level - 1] + '!';
+    if (!guess || guess > difficulties[level - 1] || guess < 1) {
+      document.querySelector('.message').textContent = 'The number must be between 1 and ' + difficulties[level - 1] + '!';
     } else {
       if (guess == secretNum) {
         guessed();
@@ -148,7 +148,7 @@ function highScoreCalculator() {
 }
 
 function getRadom() {
-  let res = Math.trunc(Math.random() * (difficulties[level - 1] + 1));
+  let res = Math.trunc(Math.random() * difficulties[level - 1] + 1);
   return res;
 }
 
