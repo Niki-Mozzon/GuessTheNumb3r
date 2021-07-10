@@ -6,7 +6,7 @@ let guess;
 let level = 1;
 const difficulties = [50, 100, 250, 500, 750, 1000, 2500, 5000, 7500, 10000];
 let maxScore = (guessAvailable + 10) * difficulties.length;
-let secretNum = getRadom();
+let secretNum = getRandom();
 const history = document.querySelector('.history');
 let highScore = 0;
 let mex;
@@ -19,7 +19,7 @@ document.querySelector('#levelUp').addEventListener('click', function() {
   levelUp();
 });
 
-document.querySelector('.check').addEventListener('click', function() {
+let check = function() {
   if (!document.getElementsByClassName('check').disabled) {
     guess = Number(document.querySelector('#guess').value);
 
@@ -38,8 +38,14 @@ document.querySelector('.check').addEventListener('click', function() {
     history.scrollTop = history.scrollHeight;
     document.getElementById('guess').focus();
   }
-});
+};
+document.querySelector('.check').addEventListener('click', check);
 
+document.addEventListener('keydown', function(e) {
+  if (e.keyCode === 13) {
+    check();
+  }
+});
 function notGuessed() {
   guessCount++;
   if (guess > secretNum) {
@@ -102,21 +108,22 @@ function guessed() {
   if (level == 10) {
     document.getElementById('levelUp').textContent = 'Score';
   }
-  document.getElementById('levelUp').focus();
+  //document.getElementById('levelUp').focus();  //Non funziona se viene implementato con l'implementazione del check all'invio
   document.getElementById('guess').disabled = true;
   document.getElementsByClassName('check').disabled = true;
 }
 
 function levelUp() {
   if (level == 10) {
-    window.location.href = 'score.html';
+    setVisibleCongrats();
+    //window.location.href = 'score.html';
     return;
   }
   //document.getElementsByClassName('number').style.width = '15rem';
   level++; //Increase level
   document.getElementById('guess').disabled = false;
   document.getElementsByClassName('check').disabled = false;
-  secretNum = getRadom(); //calculate new secret number
+  secretNum = getRandom(); //calculate new secret number
   document.querySelector('.number').textContent = '?'; //veil secret number
   //document.querySelector('.number').textContent = secretNum; //Unveil secret number
   document.querySelector('#guess').value = '';
@@ -147,9 +154,16 @@ function highScoreCalculator() {
   return highScore;
 }
 
-function getRadom() {
+function getRandom() {
   let res = Math.trunc(Math.random() * difficulties[level - 1] + 1);
   return res;
+}
+
+function setVisibleCongrats() {
+  let hids = document.querySelectorAll('.hidden');
+  for (var i = 0; i < hids.length; i++) {
+    hids[i].style.display = 'unset';
+  }
 }
 
 /*
