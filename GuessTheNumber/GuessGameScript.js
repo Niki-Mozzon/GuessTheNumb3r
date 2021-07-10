@@ -57,7 +57,7 @@ function notGuessed() {
     } else if (level >= 3) {
       hint = '-----!';
       mex = "Way too high, you ain't even close!";
-      if (guess - secretNum <= 30 && level >= 3) {
+      if (guess - secretNum <= 30) {
         //Aggiustare il level 3 se non serve!!
         hint = '--';
         mex = 'High, but you are getting close..';
