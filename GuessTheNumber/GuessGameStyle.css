@@ -52,7 +52,17 @@ h1 {
     text-align: center;
     position: absolute;
     width: 100%;
-    top: 52%;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h2 {
+    font-size: 3rem;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -82,6 +92,7 @@ h1 {
     top: 2rem;
     left: 2rem;
     display:none;
+    text-decoration:none;
 }
 
 #guess {
@@ -91,7 +102,7 @@ h1 {
     color: inherit;
     font-size: 5rem;
     padding: 2.5rem;
-    width: 25rem;
+    width: 35rem;
     text-align: center;
     display: block;
     margin-bottom: 3rem;
@@ -106,7 +117,7 @@ h1 {
     height: 20rem;
     font-size: 2rem;
     padding: 2.5rem;
-    width: 25rem;
+    width: 35rem;
     text-align: center;
     display: block;
     margin-bottom: 3rem;

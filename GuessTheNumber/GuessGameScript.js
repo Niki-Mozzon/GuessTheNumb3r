@@ -99,12 +99,19 @@ function guessed() {
   document.querySelector('.number').textContent = secretNum; //Unveil secret number
   document.getElementById('levelUp').style.display = 'unset';
   document.querySelector('.highscore').textContent = highScoreCalculator() + '/' + maxScore; //Set score
+  if (level == 10) {
+    document.getElementById('levelUp').textContent = 'Score';
+  }
   document.getElementById('levelUp').focus();
   document.getElementById('guess').disabled = true;
   document.getElementsByClassName('check').disabled = true;
 }
 
 function levelUp() {
+  if (level == 10) {
+    window.location.href = 'score.html';
+    return;
+  }
   //document.getElementsByClassName('number').style.width = '15rem';
   level++; //Increase level
   document.getElementById('guess').disabled = false;
@@ -134,6 +141,9 @@ function highScoreCalculator() {
   let res = guessAvailable - guessCount + 10;
   highScore += res;
   guessCount = 0;
+  if (highScore < 0) {
+    return 0;
+  }
   return highScore;
 }
 
