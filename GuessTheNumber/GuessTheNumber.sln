@@ -6,9 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5ABD38D9-3214-4AB0-92EC-66B0E38C922F}"
 	ProjectSection(SolutionItems) = preProject
 		.prettierrc = .prettierrc
-		GuessGameIndex.html = GuessGameIndex.html
 		GuessGameScript.js = GuessGameScript.js
 		GuessGameStyle.css = GuessGameStyle.css
+		Index.html = Index.html
 		score.html = score.html
 	EndProjectSection
 EndProject
