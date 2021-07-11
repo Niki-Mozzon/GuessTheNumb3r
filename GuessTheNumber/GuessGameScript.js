@@ -7,7 +7,7 @@ const guessAvailable = 10;
 const difficulties = [50, 100, 250, 500, 750, 1000, 2500, 5000, 7500, 10000];
 const maxLevel = difficulties.length;
 //maxLevel =1;      //Testing congratulations form
-let maxScore = (guessAvailable + 10) * maxLevel;
+const  maxScore = (guessAvailable + 10) * maxLevel;
 const levelBonus = 10;
 let secretNum = getRandom();
 const history = document.querySelector(".history");
@@ -182,7 +182,7 @@ function loading() {
 }
 
 function highScoreCalculator() {
-    let res = (guessAvailable - guessCount) + levelBonus;
+    const res = (guessAvailable - guessCount) + levelBonus;
     if (!(guessCount > guessAvailable)) {
         highScore += res;
     } else {
@@ -196,17 +196,17 @@ function highScoreCalculator() {
 }
 
 function getRandom() {
-    let res = Math.trunc(Math.random() * difficulties[level - 1] + 1);
+    const res = Math.trunc(Math.random() * difficulties[level - 1] + 1);
     return res;
 }
 
 function setVisibleCongrats() {
-    let hids = document.querySelectorAll(".hidden");
-    for (var i = 0; i < hids.length; i++) {
+    const hids = document.querySelectorAll(".hidden");
+    for (let i = 0; i < hids.length; i++) {
         hids[i].style.display = "unset";
     }
     document.querySelector("#final-score").textContent = "Score: " + highScore + "/200";
-    let comment = "cici";
+    let comment = "";
     if (highScore == 200) {
         comment = "Seems incredible, too incredible to be true.."
     } else if (highScore > 150) {
