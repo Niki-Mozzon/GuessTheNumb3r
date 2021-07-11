@@ -1,7 +1,0 @@
-{
-  "singleQuote": true,
-  "arrowParens": "avoid",
-  "proseWrap": "never",
-  "endOfLine": "auto",
-  "printWidth": "200"
-}
