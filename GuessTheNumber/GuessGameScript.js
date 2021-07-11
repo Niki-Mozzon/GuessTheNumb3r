@@ -16,7 +16,7 @@ let mex;
 let hint;
 
 loading();
-document.querySelector('.number').textContent = secretNum;                  //UNVEIL THE NUMBER
+//document.querySelector('.number').textContent = secretNum;                  //UNVEIL THE NUMBER
 
 
 document.querySelector("#levelUp").addEventListener("click", function () {
@@ -162,7 +162,7 @@ function veilNumber() {
     document.getElementById("number").style.width = "15rem";
     document.getElementById("number").style.padding = "3rem 0rem";
     document.querySelector(".number").textContent = "?"; //veil secret number
-    document.querySelector(".number").textContent = secretNum; //Unveil secret number
+    //document.querySelector(".number").textContent = secretNum; //Unveil secret number
 }
 
 
