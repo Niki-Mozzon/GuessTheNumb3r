@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
 
+/* =====================================================================
+   RESET & BASE
+   ===================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -12,30 +15,81 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 html {
     font-size: 62.5%;
     box-sizing: border-box;
+    height: 100%;
+    overflow: hidden;
 }
 
+/* =====================================================================
+   BODY — dark background + subtle cyan grid
+   ===================================================================== */
 body {
     font-family: 'Press Start 2P', sans-serif;
     color: #eee;
-    background-color: #222;
+    background-color: #0d0d0d;
+    background-image:
+        linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
 }
 
-/* LAYOUT */
+/* CRT vignette — radial darkening at edges */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 60%,
+        rgba(0, 0, 0, 0.55) 100%
+    );
+    pointer-events: none;
+    z-index: 998;
+}
+
+/* CRT scanlines — subtle repeating horizontal lines */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 3px,
+        rgba(0, 0, 0, 0.18) 3px,
+        rgba(0, 0, 0, 0.18) 4px
+    );
+    pointer-events: none;
+    z-index: 999;
+}
+
+/* =====================================================================
+   LAYOUT
+   ===================================================================== */
 header {
     position: relative;
     height: 35vh;
-    border-bottom: 7px solid #eee;
+    border-bottom: 7px solid #00e5ff;
+    box-shadow: 0 4px 18px rgba(0, 229, 255, 0.18);
 }
 
 main {
     height: 65vh;
     color: #eee;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-around;
+    padding-top: 7rem;
+    overflow: hidden;
 }
 
 .left {
@@ -44,14 +98,18 @@ main {
     font-size: 2rem;
     flex-direction: column;
     align-items: center;
+    align-self: stretch;
 }
 
 .right {
     width: 52rem;
     font-size: 2rem;
+    align-self: center;
 }
 
-/* ELEMENTS STYLE */
+/* =====================================================================
+   ELEMENTS
+   ===================================================================== */
 h1 {
     font-size: 4rem;
     text-align: center;
@@ -60,6 +118,11 @@ h1 {
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
+    color: #00e5ff;
+    text-shadow:
+        0 0 6px #00e5ff,
+        0 0 18px rgba(0, 229, 255, 0.6),
+        0 0 36px rgba(0, 229, 255, 0.3);
 }
 
 h2 {
@@ -72,9 +135,10 @@ h2 {
     transform: translate(-50%, -50%);
 }
 
+/* Number box — neon cyan, straddles header/main border */
 .number {
-    background: #eee;
-    color: #333;
+    background: #0d0d0d;
+    color: #00e5ff;
     font-size: 6rem;
     width: 15rem;
     padding: 3rem 1rem;
@@ -83,8 +147,17 @@ h2 {
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 50%);
+    border: 4px solid #00e5ff;
+    text-shadow:
+        0 0 8px #00e5ff,
+        0 0 20px rgba(0, 229, 255, 0.7);
+    box-shadow:
+        0 0 12px rgba(0, 229, 255, 0.5),
+        0 0 28px rgba(0, 229, 255, 0.25),
+        inset 0 0 8px rgba(0, 229, 255, 0.08);
 }
 
+/* Level display */
 #level-difficulty {
     font-size: 2rem;
     position: absolute;
@@ -92,42 +165,89 @@ h2 {
     right: 2rem;
 }
 
-#levelUp {
-    position: absolute;
-    top: 2rem;
-    left: 2rem;
-    display: none;
-    text-decoration: none;
+#level-difficulty .level {
+    color: #00e5ff;
+    text-shadow:
+        0 0 6px #00e5ff,
+        0 0 14px rgba(0, 229, 255, 0.5);
 }
 
+/* Level-up / Try-again button */
+#levelUp {
+    display: none;
+    text-decoration: none;
+    width: 35rem;
+    margin-top: 2rem;
+}
+
+#levelUp:not(.btn-danger) {
+    background: #00e5ff;
+    color: #0d0d0d;
+    box-shadow: 4px 4px 0px #006680;
+}
+
+#levelUp:not(.btn-danger):hover {
+    background: #33eeff;
+    color: #0d0d0d;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #006680;
+}
+
+#levelUp:not(.btn-danger):active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+}
+
+/* Guess input */
 #guess {
     background: none;
-    border: 4px solid #eee;
+    border: 4px solid #00e5ff;
     font-family: inherit;
-    color: inherit;
+    color: #00e5ff;
     font-size: 5rem;
     padding: 2.5rem;
     width: 35rem;
     text-align: center;
     display: block;
     margin-bottom: 3rem;
+    caret-color: #00e5ff;
+    text-shadow:
+        0 0 6px #00e5ff,
+        0 0 14px rgba(0, 229, 255, 0.5);
+    transition: box-shadow 0.15s ease;
 }
 
+#guess:focus {
+    outline: none;
+    box-shadow:
+        0 0 10px rgba(0, 229, 255, 0.6),
+        0 0 22px rgba(0, 229, 255, 0.35),
+        inset 0 0 8px rgba(0, 229, 255, 0.08);
+}
+
+/* History area — terminal-like */
 .history {
-    background: none;
-    border: 4px solid #eee;
+    background: rgba(0, 0, 0, 0.55);
+    border: 4px solid #333;
     font-family: inherit;
-    color: inherit;
-    height: 20rem;
+    color: #aaa;
+    flex: 1;
+    min-height: 8rem;
     font-size: 2rem;
     padding: 1.5rem 2.5rem;
     width: 35rem;
     text-align: left;
-    display: block;
     margin-bottom: 3rem;
     overflow-y: auto;
 }
 
+/* Custom scrollbar */
+.history::-webkit-scrollbar { width: 6px; }
+.history::-webkit-scrollbar-track { background: #0d0d0d; }
+.history::-webkit-scrollbar-thumb { background: #333; }
+.history::-webkit-scrollbar-thumb:hover { background: #00e5ff; }
+
+/* Buttons — 3D retro pixel shadow */
 .btn {
     border: none;
     background-color: #eee;
@@ -137,15 +257,29 @@ h2 {
     padding: 2rem 3rem;
     cursor: pointer;
     text-decoration: none;
+    box-shadow: 4px 4px 0px #666;
+    transition: transform 0.05s, box-shadow 0.05s;
 }
 
-    .btn:hover {
-        background-color: #ccc;
-    }
+.btn:hover {
+    background-color: #ccc;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #666;
+}
 
+.btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+}
+
+/* Message text — warm amber/gold */
 .message {
     margin-bottom: 8rem;
     height: 3rem;
+    color: #ffcc44;
+    text-shadow:
+        0 0 6px rgba(255, 204, 68, 0.7),
+        0 0 14px rgba(255, 204, 68, 0.35);
 }
 
 .label-history {
@@ -157,7 +291,60 @@ h2 {
     margin-bottom: 2rem;
 }
 
-/* HISTORY ENTRIES */
+/* Score and highscore values — cyan accent */
+.score,
+.highscore {
+    color: #00e5ff;
+    text-shadow:
+        0 0 6px #00e5ff,
+        0 0 14px rgba(0, 229, 255, 0.5);
+}
+
+/* =====================================================================
+   CORRECT GUESS GLOW
+   ===================================================================== */
+.center-glow {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+        ellipse at 50% 35vh,
+        rgba(0, 255, 102, 0.18) 0%,
+        transparent 55%
+    );
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 6;
+}
+
+body.correct .center-glow {
+    opacity: 1;
+}
+
+/* Number box and header line turn green on correct guess */
+.number {
+    transition: border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, text-shadow 0.4s ease;
+}
+
+body.correct .number:not(.level-failed) {
+    border-color: #00ff66;
+    color: #00ff66;
+    text-shadow: 0 0 10px #00ff66, 0 0 22px rgba(0, 255, 102, 0.7);
+    box-shadow: 0 0 15px rgba(0, 255, 102, 0.5), 0 0 35px rgba(0, 255, 102, 0.25), inset 0 0 8px rgba(0, 255, 102, 0.08);
+}
+
+header {
+    transition: border-bottom-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+body.correct header {
+    border-bottom-color: #00ff66;
+    box-shadow: 0 4px 20px rgba(0, 255, 102, 0.35);
+}
+
+/* =====================================================================
+   HISTORY ENTRIES — proximity colour scheme
+   ===================================================================== */
 .history-entry {
     padding: 0.4rem 0;
     font-size: 1.8rem;
@@ -174,10 +361,20 @@ h2 {
     font-size: 2rem;
 }
 
-/* LOSE STATE */
+/* =====================================================================
+   LOSE STATE
+   ===================================================================== */
 .number.level-failed {
-    background: #cc2200;
-    color: #fff;
+    background: #1a0000;
+    color: #ff3300;
+    border-color: #ff3300;
+    text-shadow:
+        0 0 8px #ff3300,
+        0 0 20px rgba(255, 51, 0, 0.7);
+    box-shadow:
+        0 0 12px rgba(255, 51, 0, 0.6),
+        0 0 28px rgba(255, 51, 0, 0.3),
+        inset 0 0 8px rgba(255, 51, 0, 0.1);
     animation: shake 0.5s ease forwards;
 }
 
@@ -193,6 +390,7 @@ h2 {
     border: 3px solid #cc2200;
     color: #cc2200;
     background: #111;
+    box-shadow: none;
     animation: blink-border 0.8s step-start infinite;
 }
 
@@ -200,7 +398,9 @@ h2 {
     50% { border-color: transparent; color: transparent; }
 }
 
-/* WIN SCREEN */
+/* =====================================================================
+   WIN SCREEN
+   ===================================================================== */
 .hidden {
     display: none !important;
 }
@@ -211,12 +411,17 @@ h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #111;
+    background-color: #0a0a0a;
+    background-image:
+        linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
-    border: 8px solid #eee;
+    border: 8px solid #00e5ff;
+    box-shadow: inset 0 0 40px rgba(0, 229, 255, 0.08);
 }
 
 .modal-inner {
@@ -231,10 +436,15 @@ h2 {
 .win-stars {
     font-size: 3rem;
     letter-spacing: 1rem;
+    color: #ffcc44;
+    text-shadow:
+        0 0 8px rgba(255, 204, 68, 0.8),
+        0 0 20px rgba(255, 204, 68, 0.5);
 }
 
 .win-title {
     font-size: 5rem;
+    color: #00e5ff;
     animation: glow-pulse 1.2s ease-in-out infinite alternate;
 }
 
@@ -246,6 +456,10 @@ h2 {
     font-size: 2rem;
     max-width: 60rem;
     line-height: 1.8;
+    color: #ffcc44;
+    text-shadow:
+        0 0 6px rgba(255, 204, 68, 0.6),
+        0 0 14px rgba(255, 204, 68, 0.3);
 }
 
 .again {
@@ -259,15 +473,27 @@ h2 {
 }
 
 @keyframes glow-pulse {
-    from { text-shadow: 0 0 5px #eee; }
-    to   { text-shadow: 0 0 20px #fff, 0 0 40px #ccc, 0 0 60px #aaa; }
+    from {
+        text-shadow:
+            0 0 6px #00e5ff,
+            0 0 14px rgba(0, 229, 255, 0.6);
+    }
+    to {
+        text-shadow:
+            0 0 10px #00e5ff,
+            0 0 30px #00e5ff,
+            0 0 60px rgba(0, 229, 255, 0.8),
+            0 0 100px rgba(0, 229, 255, 0.4);
+    }
 }
 
 @keyframes blink-btn {
     50% { opacity: 0; }
 }
 
-/* RESPONSIVE — 900px: tighten sizes, keep two columns */
+/* =====================================================================
+   RESPONSIVE — 900px: tighten sizes, keep two columns
+   ===================================================================== */
 @media (max-width: 900px) {
     h1 { font-size: 3rem; }
     .number { font-size: 5rem; }
@@ -278,8 +504,12 @@ h2 {
     .win-score { font-size: 2.5rem; }
 }
 
-/* RESPONSIVE — 650px: stack columns */
+/* =====================================================================
+   RESPONSIVE — 650px: stack columns
+   ===================================================================== */
 @media (max-width: 650px) {
+    html, body { overflow: auto; }
+
     header {
         height: auto;
         min-height: 22vh;
@@ -302,10 +532,6 @@ h2 {
         text-align: center;
     }
 
-    #levelUp {
-        position: static;
-    }
-
     .number {
         font-size: 4rem;
         width: 12rem;
@@ -317,6 +543,7 @@ h2 {
         align-items: center;
         padding: 6rem 1rem 2rem;
         gap: 2rem;
+        overflow: visible;
     }
 
     .left, .right {
@@ -333,7 +560,9 @@ h2 {
     .modal-inner { padding: 2rem; gap: 2rem; }
 }
 
-/* RESPONSIVE — 400px: phones */
+/* =====================================================================
+   RESPONSIVE — 400px: phones
+   ===================================================================== */
 @media (max-width: 400px) {
     h1 { font-size: 1.8rem; }
     .number { font-size: 3rem; width: 10rem; padding: 2rem 0.5rem; }

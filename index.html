@@ -9,6 +9,7 @@
 
 </head>
 <body>
+    <div class="center-glow"></div>
     <div class="modal hidden">
         <div class="modal-inner">
             <div class="win-stars">★ ★ ★</div>
@@ -22,7 +23,6 @@
     <header>
         <h1>Guess the Numb3r!</h1>
         <p id="level-difficulty"><span class="level">Level 1</span> <span class="difficulty"></span></p>
-        <button class="btn" id="levelUp">Next Level!</button>
         <div id="number" class="number">?</div>
     </header>
     <main>
@@ -31,6 +31,7 @@
             <div class="history" role="log" aria-live="polite"></div>
             <input type="number" id="guess" />
             <button type="submit" class="btn check">Check!</button>
+            <button class="btn" id="levelUp">Next Level!</button>
         </section>
         <section class="right">
             <p class="message">Start guessing...</p>

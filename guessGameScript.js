@@ -68,6 +68,16 @@ function notGuessed() {
     document.querySelector('.message').textContent = messages[proximity];
     document.querySelector('.score').textContent = guessAvailable - guessCount;
     history.scrollTop = history.scrollHeight;
+
+    if (guessCount >= guessAvailable) {
+        guessCount = guessAvailable + 1; // mark as failed so levelSwitched() won't advance
+        document.querySelector('.message').textContent = 'Out of tries! Restarting...';
+        unveilNumber();
+        document.getElementById('number').classList.add('level-failed');
+        document.getElementById('guess').disabled = true;
+        document.querySelector('.check').disabled = true;
+        setTimeout(levelSwitched, 2000);
+    }
 }
 
 let check = function () {
@@ -105,6 +115,7 @@ function guessed() {
         document.getElementById("number").classList.add("level-failed");
         document.getElementById("levelUp").classList.add("btn-danger");
     } else {
+        document.body.classList.add('correct');
         if (level == maxLevel) {
             document.getElementById("levelUp").textContent = "Score!";
         } else {
@@ -114,6 +125,7 @@ function guessed() {
     document.getElementById("levelUp").style.display = "unset";
     document.getElementById("guess").disabled = true;
     document.querySelector(".check").disabled = true;
+    document.querySelector(".check").style.display = "none";
 }
 
 function levelSwitched() {
@@ -123,6 +135,7 @@ function levelSwitched() {
     guessCount = 0;
     document.getElementById("guess").disabled = false;
     document.querySelector(".check").disabled = false;
+    document.querySelector(".check").style.display = "";
     secretNum = getRandom();
     document.querySelector("#guess").value = "";
     history.innerHTML = '';
@@ -132,6 +145,7 @@ function levelSwitched() {
         "(Between 1 and " + difficulties[level - 1] + ")";
     document.querySelector(".score").textContent = guessAvailable - guessCount;
     veilNumber();
+    document.body.classList.remove('correct');
     document.getElementById("number").classList.remove("level-failed");
     document.getElementById("levelUp").classList.remove("btn-danger");
     document.querySelector(".message").textContent = "Start guessing...";
