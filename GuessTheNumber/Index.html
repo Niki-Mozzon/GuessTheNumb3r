@@ -10,29 +10,15 @@
 </head>
 <body>
     <div class="modal hidden">
-        <div class="modal-text">
-
-            <div class="congrats">
-                CONGRATULATIONS!<br />You completed the game!
-            </div>
-            <div class="final-res">
-                <span id="final-score">
-                Score:12/200<br/>
-                </span><br />
-                <span id="comment">
-                Score:12/200<br/>
-                </span>
-            </div>
-
-            <div class="ask-again">
-                
-                Do you want to play again?<br />
-                  <a class="btn again" href="index.html">Play again!</a>
-            </div>
-
+        <div class="modal-inner">
+            <div class="win-stars">★ ★ ★</div>
+            <div class="win-title">GAME COMPLETE!</div>
+            <div class="win-stars">★ ★ ★</div>
+            <div class="win-score" id="final-score"></div>
+            <div class="win-comment" id="comment"></div>
+            <a class="btn again" href="index.html">[ PLAY AGAIN ]</a>
         </div>
     </div>
-    <div class="overlay hidden"></div>
     <header>
         <h1>Guess the Numb3r!</h1>
         <p id="level-difficulty"><span class="level">Level 1</span> <span class="difficulty"></span></p>
@@ -42,7 +28,7 @@
     <main>
         <section class="left">
             <p class="label-history">History</p>
-            <textarea type="number" readonly class="history"></textarea>
+            <div class="history" role="log" aria-live="polite"></div>
             <input type="number" id="guess" />
             <button type="submit" class="btn check">Check!</button>
         </section>
